@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Claude</title>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #faf6f0;
+    color: #2a1f14;
+    font-family: 'Caveat', cursive;
+    font-size: 1.25rem;
+    line-height: 1.7;
+    padding: 48px 24px 80px;
+  }
+  .page { max-width: 680px; margin: 0 auto; }
+  .back {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    margin-bottom: 40px;
+    opacity: 0.85;
+  }
+  .back:hover { opacity: 1; }
+  .back img {
+    width: 48px;
+    height: auto;
+  }
+  .back span {
+    font-size: 1.3rem;
+    color: #8a6a4a;
+  }
+  h1 {
+    font-size: 3.2rem;
+    font-weight: 600;
+    margin-bottom: 8px;
+    line-height: 1.1;
+  }
+  .subtitle {
+    font-size: 1.1rem;
+    color: #8a6a4a;
+    margin-bottom: 48px;
+  }
+  h2 {
+    font-size: 1.6rem;
+    font-weight: 600;
+    margin-bottom: 16px;
+    color: #3d2b1a;
+  }
+  section { margin-bottom: 48px; }
+  .pros-cons {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+  .pros-cons h3 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: #5a3e28;
+  }
+  ul { list-style: none; }
+  ul li::before { content: "— "; color: #b0a090; }
+  ul li { margin-bottom: 6px; }
+  .examples li { margin-bottom: 10px; }
+  ol { list-style: none; counter-reset: steps; }
+  ol li {
+    counter-increment: steps;
+    margin-bottom: 14px;
+    padding-left: 2rem;
+    position: relative;
+  }
+  ol li::before {
+    content: counter(steps) ".";
+    position: absolute;
+    left: 0;
+    color: #b0a090;
+  }
+  a { color: #6b4c2a; text-decoration: underline; text-underline-offset: 3px; }
+  a:hover { color: #3d2b1a; }
+  .divider {
+    border: none;
+    border-top: 1px dashed #d4c5b0;
+    margin: 0 0 48px;
+  }
+  @keyframes shake {
+    0%   { transform: translate(0, 0); }
+    15%  { transform: translate(-3px, 1px); }
+    30%  { transform: translate(3px, -1px); }
+    45%  { transform: translate(-2px, 2px); }
+    60%  { transform: translate(2px, -2px); }
+    75%  { transform: translate(-1px, 1px); }
+    90%  { transform: translate(1px, -1px); }
+    100% { transform: translate(0, 0); }
+  }
+  body.shaking { animation: shake 0.5s ease-in-out infinite; }
+</style>
+</head>
+<body>
+<div class="page">
+  <a class="back" href="index.html"><img src="spider.png" alt="home"><span>bye bye</span></a>
+
+  <h1>Claude</h1>
+  <p class="subtitle">an AI assistant made by Anthropic</p>
+  <hr class="divider">
+
+  <section>
+    <h2>pros & cons</h2>
+    <div class="pros-cons">
+      <div>
+        <h3>the good stuff</h3>
+        <ul>
+          <li>thoughtful, nuanced responses</li>
+          <li>excellent for writing & coding</li>
+          <li>free tier available</li>
+          <li>context-aware across long conversations</li>
+        </ul>
+      </div>
+      <div>
+        <h3>worth knowing</h3>
+        <ul>
+          <li>requires an account</li>
+          <li>not always current on recent events</li>
+          <li>occasionally cautious to a fault</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>what people make with it</h2>
+    <ul class="examples">
+      <li>long-form essays and thoughtful first drafts</li>
+      <li>code review and debugging sessions</li>
+      <li>research summaries and reading notes</li>
+      <li>slow, patient brainstorming</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>get started</h2>
+    <ol>
+      <li>Visit <a href="https://claude.ai" target="_blank">claude.ai</a> and create a free account</li>
+      <li>Try asking it a question you've been sitting with</li>
+      <li>For coding help, explore <a href="https://claude.com/product/claude-code" target="_blank">Claude Code</a></li>
+      <li>Take your time — there's no rush</li>
+    </ol>
+  </section>
+</div>
+<script>
+  const back = document.querySelector('.back');
+  back.addEventListener('mouseenter', () => document.body.classList.add('shaking'));
+  back.addEventListener('mouseleave', () => document.body.classList.remove('shaking'));
+</script>
+</body>
+</html>

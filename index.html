@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI, slowly.</title>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #faf6f0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+  }
+  .container {
+    position: relative;
+    display: inline-block;
+  }
+  video {
+    display: block;
+    max-width: 100vw;
+    max-height: 100vh;
+  }
+  .hotspot {
+    position: absolute;
+    cursor: pointer;
+    background: transparent;
+    border: none;
+    display: none;
+  }
+  .hotspot.active {
+    display: block;
+  }
+  @keyframes shake {
+    0%   { transform: translate(0, 0); }
+    15%  { transform: translate(-3px, 1px); }
+    30%  { transform: translate(3px, -1px); }
+    45%  { transform: translate(-2px, 2px); }
+    60%  { transform: translate(2px, -2px); }
+    75%  { transform: translate(-1px, 1px); }
+    90%  { transform: translate(1px, -1px); }
+    100% { transform: translate(0, 0); }
+  }
+  body.shaking {
+    animation: shake 0.5s ease-in-out infinite;
+  }
+  .skip-btn {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 24px;
+    height: 24px;
+    background: #d0d0d0;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+  }
+  .date-stamp {
+    position: fixed;
+    bottom: 20px;
+    right: 24px;
+    font-family: 'Caveat', cursive;
+    font-size: 1rem;
+    color: #b0a090;
+    pointer-events: none;
+  }
+</style>
+</head>
+<body>
+<div class="container" id="container">
+  <video id="vid" src="ux-ai-test.mp4" muted playsinline></video>
+
+  <div class="hotspot" id="claude"     style="left:calc(15% + 150px); top:calc(30% + 180px); width:22%; height:calc(15% - 30px);" onclick="window.open('claude.html','_blank')"></div>
+  <div class="hotspot" id="nanobanan"  style="left:calc(15% + 150px); top:calc(45% + 150px); width:28%; height:9%;" onclick="window.open('nanobanan.html','_blank')"></div>
+  <div class="hotspot" id="hireme"     style="left:calc(15% + 150px); top:calc(54% + 150px); width:calc(20% + 130px); height:15%;" onclick="window.open('hireme.html','_blank')"></div>
+</div>
+
+<button class="skip-btn" onclick="skipToEnd()"></button>
+<div class="date-stamp">hand drawn on: April 23, 2026</div>
+
+<script>
+  const vid = document.getElementById('vid');
+  const hotspots = document.querySelectorAll('.hotspot');
+
+  const subPages = ['claude.html', 'nanobanan.html', 'hireme.html'];
+  const returningFromSubPage = subPages.some(p => document.referrer.includes(p));
+
+  function activate() {
+    vid.addEventListener('play', () => vid.pause());
+    hotspots.forEach(h => {
+      h.classList.add('active');
+      h.addEventListener('mouseenter', () => document.body.classList.add('shaking'));
+      h.addEventListener('mouseleave', () => document.body.classList.remove('shaking'));
+    });
+  }
+
+  function freezeOnLastFrame() {
+    vid.currentTime = vid.duration - 0.01;
+    vid.addEventListener('seeked', () => { vid.pause(); activate(); }, { once: true });
+  }
+
+  vid.addEventListener('ended', freezeOnLastFrame);
+
+  function skipToEnd() {
+    freezeOnLastFrame();
+  }
+
+  vid.addEventListener('loadedmetadata', () => {
+    if (returningFromSubPage) {
+      freezeOnLastFrame();
+    } else {
+      vid.play();
+    }
+  }, { once: true });
+</script>
+</body>
+</html>
